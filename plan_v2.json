@@ -1,0 +1,230 @@
+[
+  {
+    "step": "Read and Analyze pom.xml to Understand Backend Dependencies",
+    "sub_steps": [
+      "Open and read /home/coder/project/workspace/question_generation_service/solutions/93e21f42-0b50-45e0-ba1c-8844ae07fbbe/springapp/pom.xml.",
+      "Identify Spring Boot version, data-jpa, validation, mysql, websocket, and other dependencies.",
+      "Track any special configuration or versioning that may affect subsequent implementation."
+    ],
+    "files_to_add": [],
+    "files_to_edit": [
+      "/home/coder/project/workspace/question_generation_service/solutions/93e21f42-0b50-45e0-ba1c-8844ae07fbbe/springapp/pom.xml"
+    ],
+    "description": "Ensures that all backend implementation aligns with the project's available dependencies, and that no unsupported libraries or APIs are used."
+  },
+  {
+    "step": "Implement Backend Entities, Repositories, and MySQL Mapping",
+    "sub_steps": [
+      "Create ChatMessage entity with fields: id, senderId, receiverId, content, timestamp, isRead, and a ManyToOne or session link if needed.",
+      "Create ChatSession entity with fields: id, customerId, agentId, startTime, endTime, status.",
+      "Create JpaRepository interfaces for both ChatMessage and ChatSession.",
+      "Annotate with Jakarta Persistence annotations for correct JPA mapping.",
+      "Ensure all fields are mapped to MySQL columns correctly (use @Column, @Id, @GeneratedValue).",
+      "Add validation annotations on entity fields as appropriate."
+    ],
+    "files_to_add": [
+      "/home/coder/project/workspace/question_generation_service/solutions/93e21f42-0b50-45e0-ba1c-8844ae07fbbe/springapp/src/main/java/com/examly/springapp/model/ChatMessage.java",
+      "/home/coder/project/workspace/question_generation_service/solutions/93e21f42-0b50-45e0-ba1c-8844ae07fbbe/springapp/src/main/java/com/examly/springapp/model/ChatSession.java",
+      "/home/coder/project/workspace/question_generation_service/solutions/93e21f42-0b50-45e0-ba1c-8844ae07fbbe/springapp/src/main/java/com/examly/springapp/repository/ChatMessageRepository.java",
+      "/home/coder/project/workspace/question_generation_service/solutions/93e21f42-0b50-45e0-ba1c-8844ae07fbbe/springapp/src/main/java/com/examly/springapp/repository/ChatSessionRepository.java"
+    ],
+    "files_to_edit": [],
+    "description": "Defines how chat messages and sessions are persisted in MySQL, providing the foundation for backend data operations and enabling validation at the model level."
+  },
+  {
+    "step": "Implement Backend Service Layer with Business Logic and Validation",
+    "sub_steps": [
+      "Create ChatMessageService with methods: createMessage, getMessagesBySessionId, markAsRead.",
+      "Create ChatSessionService with methods: createSession, getSessionById, closeSession.",
+      "Use JPA repositories for data access.",
+      "Incorporate all specified validations (content length, sender/receiver presence, session IDs).",
+      "Add exception handling for not found and validation scenarios with custom exceptions or standard ones."
+    ],
+    "files_to_add": [
+      "/home/coder/project/workspace/question_generation_service/solutions/93e21f42-0b50-45e0-ba1c-8844ae07fbbe/springapp/src/main/java/com/examly/springapp/service/ChatMessageService.java",
+      "/home/coder/project/workspace/question_generation_service/solutions/93e21f42-0b50-45e0-ba1c-8844ae07fbbe/springapp/src/main/java/com/examly/springapp/service/ChatSessionService.java"
+    ],
+    "files_to_edit": [],
+    "description": "Implements the business logic, data validation, and service interfaces required by the REST API and ensures backend meets all requirements."
+  },
+  {
+    "step": "Implement Backend Controllers (REST API Endpoints) with Error Handling",
+    "sub_steps": [
+      "Create ChatMessageController and ChatSessionController at /api/messages and /api/sessions respectively.",
+      "Implement each endpoint as described: Create, Retrieve, Update (mark as read, close session).",
+      "Use @RestController, @RequestMapping, and correct HTTP status codes (201, 200, 400, 404).",
+      "Handle validation errors (400), not found (404), and return appropriate responses.",
+      "Ensure request/response bodies match requirements (DTOs if needed)."
+    ],
+    "files_to_add": [
+      "/home/coder/project/workspace/question_generation_service/solutions/93e21f42-0b50-45e0-ba1c-8844ae07fbbe/springapp/src/main/java/com/examly/springapp/controller/ChatMessageController.java",
+      "/home/coder/project/workspace/question_generation_service/solutions/93e21f42-0b50-45e0-ba1c-8844ae07fbbe/springapp/src/main/java/com/examly/springapp/controller/ChatSessionController.java"
+    ],
+    "files_to_edit": [],
+    "description": "Exposes RESTful endpoints for all chat and session operations, handling request routing and mapping service exceptions to API responses as per specification."
+  },
+  {
+    "step": "Enable CORS for Backend to Allow Frontend Communication",
+    "sub_steps": [
+      "Add CORS configuration for endpoints to allow requests from frontend (e.g., allow origin http://localhost:3000 or wildcards for development).",
+      "Apply configuration globally or use @CrossOrigin on controllers as necessary."
+    ],
+    "files_to_add": [
+      "/home/coder/project/workspace/question_generation_service/solutions/93e21f42-0b50-45e0-ba1c-8844ae07fbbe/springapp/src/main/java/com/examly/springapp/config/CorsConfig.java"
+    ],
+    "files_to_edit": [
+      "/home/coder/project/workspace/question_generation_service/solutions/93e21f42-0b50-45e0-ba1c-8844ae07fbbe/springapp/src/main/java/com/examly/springapp/RealTimeChatSupportSystemApplication.java"
+    ],
+    "description": "Ensures that the React frontend can access the backend APIs without CORS issues during development and testing."
+  },
+  {
+    "step": "Implement All Backend Test Cases (JUnit) for Entities, Services, Controllers, and Validation",
+    "sub_steps": [
+      "For each test case in backend Test Cases JSON, create/modify the corresponding JUnit test files.",
+      "Mock dependencies as necessary (repositories, services).",
+      "Implement positive and negative scenarios (validations, error returns).",
+      "Test correct HTTP status codes, validation failure messages, persistence, and data retrieval.",
+      "Tests to implement: createChatMessageTest, retrieveChatMessagesTest, chatSessionManagementTest, markMessageAsReadTest, dataValidationTest."
+    ],
+    "files_to_add": [
+      "/home/coder/project/workspace/question_generation_service/solutions/93e21f42-0b50-45e0-ba1c-8844ae07fbbe/springapp/src/test/java/com/examly/springapp/service/ChatMessageServiceTest.java",
+      "/home/coder/project/workspace/question_generation_service/solutions/93e21f42-0b50-45e0-ba1c-8844ae07fbbe/springapp/src/test/java/com/examly/springapp/service/ChatSessionServiceTest.java",
+      "/home/coder/project/workspace/question_generation_service/solutions/93e21f42-0b50-45e0-ba1c-8844ae07fbbe/springapp/src/test/java/com/examly/springapp/controller/ChatMessageControllerTest.java",
+      "/home/coder/project/workspace/question_generation_service/solutions/93e21f42-0b50-45e0-ba1c-8844ae07fbbe/springapp/src/test/java/com/examly/springapp/controller/ChatSessionControllerTest.java"
+    ],
+    "files_to_edit": [
+      "/home/coder/project/workspace/question_generation_service/solutions/93e21f42-0b50-45e0-ba1c-8844ae07fbbe/springapp/src/test/java/com/examly/springapp/RealTimeChatSupportSystemApplicationTests.java"
+    ],
+    "description": "Provides full backend coverage for all major functionalities, validating CRUD, business rules, error scenarios, and correct wiring of Spring components."
+  },
+  {
+    "step": "Compile and Test Back-End Implementation",
+    "sub_steps": [
+      "Run mvn clean compile -q -Dspring.main.banner-mode=off.",
+      "Run mvn test -q -Dspring.main.banner-mode=off.",
+      "Run mvn clean install -q -Dspring.main.banner-mode=off and check for compilation and test pass."
+    ],
+    "files_to_add": [],
+    "files_to_edit": [],
+    "description": "Ensures all backend code compiles and all implemented JUnit tests pass before proceeding to frontend implementation."
+  },
+  {
+    "step": "Read and Analyze package.json and React Project Structure",
+    "sub_steps": [
+      "Locate and read /home/coder/project/workspace/question_generation_service/solutions/93e21f42-0b50-45e0-ba1c-8844ae07fbbe/reactapp/package.json.",
+      "Review dependencies such as React, react-dom, React Testing Library, and others.",
+      "Analyze /src/App.js and related CSS to understand application entry point."
+    ],
+    "files_to_add": [],
+    "files_to_edit": [
+      "/home/coder/project/workspace/question_generation_service/solutions/93e21f42-0b50-45e0-ba1c-8844ae07fbbe/reactapp/package.json",
+      "/home/coder/project/workspace/question_generation_service/solutions/93e21f42-0b50-45e0-ba1c-8844ae07fbbe/reactapp/src/App.js"
+    ],
+    "description": "Confirms what is available for the frontend and identifies where new code and tests should be added."
+  },
+  {
+    "step": "Implement React Utility Files and Constants",
+    "sub_steps": [
+      "Create utils/api.js for API interaction functions to the backend endpoints.",
+      "Create utils/constants.js for sample user, agent, and session mock data.",
+      "Implement helpers like message formatting if needed.",
+      "Ensure all API URLs use http://localhost:8080 for backend."
+    ],
+    "files_to_add": [
+      "/home/coder/project/workspace/question_generation_service/solutions/93e21f42-0b50-45e0-ba1c-8844ae07fbbe/reactapp/src/utils/api.js",
+      "/home/coder/project/workspace/question_generation_service/solutions/93e21f42-0b50-45e0-ba1c-8844ae07fbbe/reactapp/src/utils/constants.js"
+    ],
+    "files_to_edit": [],
+    "description": "Centralizes API interaction logic, reuses constants for users/messages, and supports testing/development mocks."
+  },
+  {
+    "step": "Create ChatHeader Component and Tests",
+    "sub_steps": [
+      "Implement ChatHeader.js to display recipient's name, online/offline status, and end chat button.",
+      "Add props for recipient info and handler for ending chat.",
+      "Implement responsive and accessible styling as per design requirements.",
+      "Create ChatHeader.test.js, covering display of name, online status, 'End Chat' button, and button click handler."
+    ],
+    "files_to_add": [
+      "/home/coder/project/workspace/question_generation_service/solutions/93e21f42-0b50-45e0-ba1c-8844ae07fbbe/reactapp/src/components/ChatHeader.js",
+      "/home/coder/project/workspace/question_generation_service/solutions/93e21f42-0b50-45e0-ba1c-8844ae07fbbe/reactapp/src/components/ChatHeader.test.js"
+    ],
+    "files_to_edit": [],
+    "description": "Implements the header of the chat UI and verifies its functionality against the 'chatHeaderComponentTest' Jest test case."
+  },
+  {
+    "step": "Create ChatWindow Component and Tests",
+    "sub_steps": [
+      "Implement ChatWindow.js to render a scrollable message feed.",
+      "Format messages with sender, timestamp, and differentiate sent/received (colors, alignment).",
+      "Auto-scroll to latest message on new arrival.",
+      "Add necessary CSS for layout, scroll, and mobile responsiveness.",
+      "Create ChatWindow.test.js to test message rendering, distinct styling, timestamps, scroll container, as required in 'renderChatWindowTest'."
+    ],
+    "files_to_add": [
+      "/home/coder/project/workspace/question_generation_service/solutions/93e21f42-0b50-45e0-ba1c-8844ae07fbbe/reactapp/src/components/ChatWindow.js",
+      "/home/coder/project/workspace/question_generation_service/solutions/93e21f42-0b50-45e0-ba1c-8844ae07fbbe/reactapp/src/components/ChatWindow.test.js"
+    ],
+    "files_to_edit": [],
+    "description": "Implements the main area for displaying messages and verifies its rendering and behavior as specified in the Jest test cases."
+  },
+  {
+    "step": "Create MessageInput Component and Tests",
+    "sub_steps": [
+      "Implement MessageInput.js with a text input and send button.",
+      "Disable send button when input is empty; clear field after send.",
+      "Enable sending via 'Enter' key and prevent unnecessary submission.",
+      "Create MessageInput.test.js covering empty state, send button state, send operation, input clearing, and Enter key scenario for 'messageInputFunctionalityTest'."
+    ],
+    "files_to_add": [
+      "/home/coder/project/workspace/question_generation_service/solutions/93e21f42-0b50-45e0-ba1c-8844ae07fbbe/reactapp/src/components/MessageInput.js",
+      "/home/coder/project/workspace/question_generation_service/solutions/93e21f42-0b50-45e0-ba1c-8844ae07fbbe/reactapp/src/components/MessageInput.test.js"
+    ],
+    "files_to_edit": [],
+    "description": "Implements secure message input and verifies all user interactions and validations per 'messageInputFunctionalityTest'."
+  },
+  {
+    "step": "Integrate Components and State Management in App.js, Add UI Styling",
+    "sub_steps": [
+      "Compose App.js by integrating ChatHeader, ChatWindow, and MessageInput.",
+      "Implement state management with React hooks for messages and sessions.",
+      "Integrate API utilities for fetching, sending, and updating chat/session state.",
+      "Handle loading and error states.",
+      "Apply global and component-specific CSS styles to comply with UI/UX requirements."
+    ],
+    "files_to_add": [],
+    "files_to_edit": [
+      "/home/coder/project/workspace/question_generation_service/solutions/93e21f42-0b50-45e0-ba1c-8844ae07fbbe/reactapp/src/App.js",
+      "/home/coder/project/workspace/question_generation_service/solutions/93e21f42-0b50-45e0-ba1c-8844ae07fbbe/reactapp/src/App.css"
+    ],
+    "description": "Ensures top-level integration of functional and UI components, providing user flows for chat session initiation, messaging, and session closure."
+  },
+  {
+    "step": "Implement API Integration and State Management Test Cases (Jest)",
+    "sub_steps": [
+      "Create/modify test files to cover all frontend test cases:",
+      "apiIntegrationTest: In src/utils/api.test.js, mock fetch/axios to test functions for sending/receiving messages and sessions, including loading/errors.",
+      "Include tests that verify UI and state updates in App.js integration.",
+      "Ensure all mocks, handlers, and scenario coverage (success/error) per test requirements."
+    ],
+    "files_to_add": [
+      "/home/coder/project/workspace/question_generation_service/solutions/93e21f42-0b50-45e0-ba1c-8844ae07fbbe/reactapp/src/utils/api.test.js"
+    ],
+    "files_to_edit": [
+      "/home/coder/project/workspace/question_generation_service/solutions/93e21f42-0b50-45e0-ba1c-8844ae07fbbe/reactapp/src/App.test.js"
+    ],
+    "description": "Provides full Jest test coverage for all API communication, error scenarios, and loading behaviors required by frontend tests."
+  },
+  {
+    "step": "Build, Lint, and Test the Front-End React Application",
+    "sub_steps": [
+      "Run npm install in /reactapp/ to install dependencies.",
+      "Build the application with npm run build.",
+      "Lint code with npx eslint src/ --fix.",
+      "Run Jest tests with npm run test:ci and resolve any failures."
+    ],
+    "files_to_add": [],
+    "files_to_edit": [],
+    "description": "Verifies integrity of the entire React+Jest UI implementation and ensures all requirements and tests have been met for frontend deliverables."
+  }
+]

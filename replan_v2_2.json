@@ -1,0 +1,33 @@
+[
+  {
+    "step": "Break Down Fix for Jest/Axios ESM Parsing Error in App.test.js Integration Test Into Sequential Micro-Steps",
+    "sub_steps": [
+      "Check if jest.config.js exists in /reactapp/. If not, create it with basic configuration for transform and transformIgnorePatterns (including axios).",
+      "If jest.config.js does exist, add or update 'transformIgnorePatterns' to include '/node_modules/(?!axios)' to ensure that axios is transpiled.",
+      "Verify in App.test.js that jest.mock('axios') appears before any import that uses axios (if axios is used in test); if not, add it.",
+      "If using fetch instead of axios or if axios is not essential, replace axios API calls in the test with fetch mocks (e.g., using jest-fetch-mock or global.fetch override).",
+      "If additional error persists about ESM compatibility in test runs, consider switching axios usage to fetch in the test and mocking with jest-fetch-mock instead of axios.",
+      "Make sure to document any new or edited files from this step for tracking."
+    ],
+    "files_to_add": [
+      "/home/coder/project/workspace/question_generation_service/solutions/93e21f42-0b50-45e0-ba1c-8844ae07fbbe/reactapp/jest.config.js"
+    ],
+    "files_to_edit": [
+      "/home/coder/project/workspace/question_generation_service/solutions/93e21f42-0b50-45e0-ba1c-8844ae07fbbe/reactapp/package.json",
+      "/home/coder/project/workspace/question_generation_service/solutions/93e21f42-0b50-45e0-ba1c-8844ae07fbbe/reactapp/src/App.test.js"
+    ],
+    "description": "Executes granular, stepwise fixes for the ESM/Babel parsing error with axios in Jest, ensuring Jest properly transforms axios and test files, or falls back to fetch mocking if necessary."
+  },
+  {
+    "step": "Build, Lint, and Test the Front-End React Application",
+    "sub_steps": [
+      "Run npm install in /reactapp/ to install dependencies.",
+      "Build the application with npm run build.",
+      "Lint code with npx eslint src/ --fix.",
+      "Run Jest tests with npm run test:ci and resolve any failures."
+    ],
+    "files_to_add": [],
+    "files_to_edit": [],
+    "description": "Verifies integrity of the entire React+Jest UI implementation and ensures all requirements and tests have been met for frontend deliverables."
+  }
+]

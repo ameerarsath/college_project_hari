@@ -1,0 +1,33 @@
+[
+  {
+    "step": "Fix Jest/Axios ESM Parsing Error in App.test.js Integration Test",
+    "sub_steps": [
+      "Edit jest.config.js or package.json jest section in /reactapp/ to add 'transformIgnorePatterns' that covers 'axios' (e.g., transformIgnorePatterns: ['/node_modules/(?!axios)']).",
+      "If no jest.config.js exists, create one at /reactapp/jest.config.js with the necessary transform and transformIgnorePatterns settings.",
+      "Alternatively, mock 'axios' globally in App.test.js or set up a manual mock in __mocks__/axios.js to avoid ESM import issues in tests.",
+      "Ensure that any import statement of 'axios' in test files is handled via jest.mock('axios') before imports in App.test.js to override problematic native ESM import.",
+      "If using fetch instead of axios is preferable for the integration test, replace axios in test environment with a fetch mock (such as jest-fetch-mock).",
+      "Rerun npm run test:ci to confirm all tests pass."
+    ],
+    "files_to_add": [
+      "/home/coder/project/workspace/question_generation_service/solutions/93e21f42-0b50-45e0-ba1c-8844ae07fbbe/reactapp/jest.config.js"
+    ],
+    "files_to_edit": [
+      "/home/coder/project/workspace/question_generation_service/solutions/93e21f42-0b50-45e0-ba1c-8844ae07fbbe/reactapp/package.json",
+      "/home/coder/project/workspace/question_generation_service/solutions/93e21f42-0b50-45e0-ba1c-8844ae07fbbe/reactapp/src/App.test.js"
+    ],
+    "description": "Resolves the Babel/Jest ESM import error for axios by configuring Jest to properly transpile axios or by globally mocking axios in tests, ensuring the App integration test runs without syntax errors."
+  },
+  {
+    "step": "Build, Lint, and Test the Front-End React Application",
+    "sub_steps": [
+      "Run npm install in /reactapp/ to install dependencies.",
+      "Build the application with npm run build.",
+      "Lint code with npx eslint src/ --fix.",
+      "Run Jest tests with npm run test:ci and resolve any failures."
+    ],
+    "files_to_add": [],
+    "files_to_edit": [],
+    "description": "Verifies integrity of the entire React+Jest UI implementation and ensures all requirements and tests have been met for frontend deliverables."
+  }
+]
